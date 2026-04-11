@@ -34,6 +34,17 @@ const TESTS = [
   status: "live",
   color: "#dc2626",
 },
+{
+  id: "test4",
+  title: "Mock Test — 4",
+  subtitle: "Aptitude + CS + Software Engineering",
+  questions: 90,
+  duration: "50 min",
+  parts: "Part 1: Aptitude (30 min) · Part 2: CS (20 min)",
+  sections: "Quant · Logical · Verbal · DI · AR · OOPs · DBMS · OS · CN · SE",
+  status: "live",
+  color: "#dc2626",
+},
 ];
  
 const T = {
