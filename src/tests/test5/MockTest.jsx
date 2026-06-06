@@ -193,7 +193,7 @@ const csQuestions = [
    opts:["No practical difference","Overloading: compile-time, same class, different params; Overriding: runtime, subclass redefines parent","Overriding is compile-time; overloading is runtime","Both require inheritance"], ans:3},
   {id:54, cat:"OOPs", q:"Which keyword prevents a class from being inherited in Java?",
    opts:["static","abstract","private","final"], ans:2},
-  {id:55, cat:"OOPs", q:"What is the output?\nclass Animal { void speak() { System.out.print("Animal"); } }\nclass Dog extends Animal { void speak() { System.out.print("Dog"); } }\nAnimal a = new Dog();\na.speak();",
+    {id:55, cat:"OOPs", q:"What is the output?\nclass Animal { void speak() { System.out.print('Animal'); } }\nclass Dog extends Animal { void speak() { System.out.print('Dog'); } }\nAnimal a = new Dog();\na.speak();",
    opts:["Animal","Dog","AnimalDog","Compile error"], ans:1, code:true},
   {id:56, cat:"OOPs", q:"What does the Open/Closed Principle state?",
    opts:["Open for modification, closed for extension","Closed for both extension and modification","Open for extension, closed for modification","Open classes cannot have private methods"], ans:3},
