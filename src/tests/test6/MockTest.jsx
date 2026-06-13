@@ -114,165 +114,218 @@ function applyShuffles(questions, studentName, tag) {
 
 
 
+
+
 // ═══════════════════════════════════════════════════════════════════════════════
-// QUESTION BANK — Mock Test 5 (All New — distinct from Tests 1-4)
+// QUESTION BANK — Mock Test 6 (All New — distinct from Tests 1-5)
 // Source: A=23 B=22 C=23 D=22 | No 3+ consecutive runs
 // ═══════════════════════════════════════════════════════════════════════════════
 
 const aptitudeQuestions = [
   // ══ QUANT (10) A=3 B=2 C=3 D=2 ═══════════════════════════════
-  {id:1, cat:"Quant", q:"If 40% of a number is 120, what is 25% of that number?", opts:["75","80","70","85"], ans:0},
-  {id:2, cat:"Quant", q:"A train crosses a 200m bridge in 20 sec and a pole in 10 sec. Length of train?", opts:["100 m","150 m","200 m","250 m"], ans:2},
-  {id:3, cat:"Quant", q:"A and B invest ₹3000 and ₹4000. A gets 10% of profit as salary, rest split by ratio. Total profit ₹1400. A's share?", opts:["₹740","₹700","₹660","₹780"], ans:0},
-  {id:4, cat:"Quant", q:"Ratio of two numbers is 4:5. Add 6 to each, ratio becomes 6:7. Find smaller number.", opts:["10","12","15","18"], ans:1},
-  {id:5, cat:"Quant", q:"Shopkeeper sells 12 items at cost price of 15. Profit %?", opts:["20%","22%","25%","30%"], ans:2},
-  {id:6, cat:"Quant", q:"SI on a sum at 8% p.a. for 3 years is ₹2400. Find the principal.", opts:["₹8000","₹10000","₹12000","₹9000"], ans:1},
-  {id:7, cat:"Quant", q:"Pipe A fills tank in 12 hrs, B empties in 16 hrs. Both open together — time to fill?", opts:["36 hrs","42 hrs","48 hrs","52 hrs"], ans:2},
-  {id:8, cat:"Quant", q:"Mean of 20 observations is 45. One value 54 was misread as 45. Correct mean?", opts:["45.35","45.45","45.55","45.25"], ans:1},
-  {id:9, cat:"Quant", q:"Boat goes 30 km upstream in 3 hrs, 30 km downstream in 2 hrs. Speed of stream?", opts:["1.5 km/h","2 km/h","2.5 km/h","3 km/h"], ans:2},
-  {id:10, cat:"Quant", q:"3-digit numbers divisible by both 4 and 6 — how many?", opts:["50","75","67","60"], ans:1},
+  {id:1,  cat:"Quant", q:"A number is increased by 20% and then decreased by 20%. Net change?",
+   opts:["No change","4% decrease","4% increase","2% decrease"], ans:1},
+  {id:2,  cat:"Quant", q:"A can finish a work in 18 days, B in 27 days. They work together for 9 days. What fraction of work remains?",
+   opts:["1/6","1/4","1/3","1/2"], ans:2},
+  {id:3,  cat:"Quant", q:"Two numbers are in ratio 3:4. Their HCF is 8. Find their LCM.",
+   opts:["72","84","96","108"], ans:2},
+  {id:4,  cat:"Quant", q:"A sum of money doubles itself at SI in 8 years. In how many years will it triple?",
+   opts:["12 years","14 years","16 years","18 years"], ans:2},
+  {id:5,  cat:"Quant", q:"A shopkeeper buys 200 apples for ₹1000 and sells 180 at ₹6 each, rest are spoiled. Profit or loss %?",
+   opts:["4% profit","8% profit","4% loss","8% loss"], ans:1},
+  {id:6,  cat:"Quant", q:"Speed of a boat in still water is 15 km/h. Stream speed is 3 km/h. Time to go 72 km downstream?",
+   opts:["4 hrs","4.5 hrs","5 hrs","3.5 hrs"], ans:0},
+  {id:7,  cat:"Quant", q:"A die is thrown twice. Probability of getting sum = 9?",
+   opts:["1/9","2/9","1/6","1/12"], ans:0},
+  {id:8,  cat:"Quant", q:"The average of 5 consecutive even numbers is 18. Find the largest number.",
+   opts:["20","22","24","26"], ans:1},
+  {id:9,  cat:"Quant", q:"A rectangle has perimeter 48 cm and length is 3 times breadth. Find area.",
+   opts:["96 sq cm","108 sq cm","120 sq cm","135 sq cm"], ans:1},
+  {id:10, cat:"Quant", q:"X is 3 years older than Y. 5 years ago X was twice Y's age. Find current age of Y.",
+   opts:["8 years","9 years","10 years","11 years"], ans:0},
 
   // ══ LOGICAL (10) A=2 B=3 C=2 D=3 ════════════════════════════
-  {id:11, cat:"Logical", q:"Series: 144, 121, 100, 81, 64, ?", opts:["49","45","36","25"], ans:0},
-  {id:12, cat:"Logical", q:"DELHI coded as EFMIJ. How is MUMBAI coded?", opts:["NVNCBJ","NVNDBI","NVNBCJ","NVNCAJ"], ans:3},
-  {id:13, cat:"Logical", q:"X is Y's brother. Y is Z's sister. Z is W's son. How is X related to W?", opts:["Son","Nephew","Daughter","Son or Daughter"], ans:3},
-  {id:14, cat:"Logical", q:"All cats are mammals. No mammal is a reptile. Which is definitely true?", opts:["No cat is a reptile","Some cats are reptiles","All reptiles are mammals","Some mammals are cats"], ans:0},
-  {id:15, cat:"Logical", q:"Mirror faces west. At 7:15 AM, what time does mirror image show?", opts:["4:45","5:45","4:15","5:15"], ans:1},
-  {id:16, cat:"Logical", q:"A is 8th from left, 14th from right in a row. Total students?", opts:["20","21","22","23"], ans:1},
-  {id:17, cat:"Logical", q:"7 people can do a job in 5 days. How many days for 5 people?", opts:["6","7","8","9"], ans:1},
-  {id:18, cat:"Logical", q:"ODD one out: BDFH, CEGI, DFHJ, EGIK, FGJL", opts:["BDFH","CEGI","DFHJ","FGJL"], ans:3},
-  {id:19, cat:"Logical", q:"Statements: All books are papers. Some papers are white.\nConclusion: Some books are white. Valid?", opts:["Yes — definite","No — not certain","Only if all papers are white","Depends on context"], ans:1},
-  {id:20, cat:"Logical", q:"P taller than Q. R shorter than S. S taller than P. Who is tallest?", opts:["P","Q","R","S"], ans:3},
+  {id:11, cat:"Logical", q:"Series: 2, 6, 12, 20, 30, 42, ?",
+   opts:["54","56","58","60"], ans:1},
+  {id:12, cat:"Logical", q:"If PAPER is coded as OZODQ, how is PENCIL coded?",
+   opts:["ODBMHK","ODMBHK","OEBNHK","ODBMHL"], ans:3},
+  {id:13, cat:"Logical", q:"A+B means A is father of B. A-B means A is wife of B. A*B means A is brother of B. In P+Q-R, how is P related to R?",
+   opts:["Father-in-law","Son-in-law","Brother-in-law","Father"], ans:0},
+  {id:14, cat:"Logical", q:"Some doctors are engineers. All engineers are scientists. No scientist is a musician. Which is true?",
+   opts:["Some doctors are musicians","No doctor is a musician","All doctors are scientists","Some engineers are musicians"], ans:3},
+  {id:15, cat:"Logical", q:"A clock shows 8:40. What is the angle between the hands?",
+   opts:["100°","110°","120°","130°"], ans:1},
+  {id:16, cat:"Logical", q:"In a class of 40, 18 play cricket, 15 play football, 7 play both. How many play neither?",
+   opts:["12","14","16","18"], ans:1},
+  {id:17, cat:"Logical", q:"Find odd one out: 3, 5, 7, 11, 13, 15",
+   opts:["5","7","13","15"], ans:3},
+  {id:18, cat:"Logical", q:"If South-East becomes East, North-West becomes West, then what does South-West become?",
+   opts:["East","West","South","North"], ans:1},
+  {id:19, cat:"Logical", q:"Statement: All pens write. Some pens are red.\nConclusion I: Some red things write.\nConclusion II: All writing things are pens.\nWhich follows?",
+   opts:["Both I and II","Only I follows","Only II follows","Neither follows"], ans:3},
+  {id:20, cat:"Logical", q:"A is 5th from top in a class. B is 8th from bottom. If there are 3 students between them, how many students in the class?",
+   opts:["14","15","16","17"], ans:3},
 
   // ══ VERBAL (10) A=3 B=2 C=2 D=3 ══════════════════════════════
-  {id:21, cat:"Verbal", q:"Synonym of TENACIOUS:", opts:["Persistent","Weak","Flexible","Timid"], ans:0},
-  {id:22, cat:"Verbal", q:"Antonym of PRUDENT:", opts:["Careful","Wise","Reckless","Cautious"], ans:3},
-  {id:23, cat:"Verbal", q:"Fill in: 'The team, along with its coach, ___ preparing for the match.'", opts:["are","were","is","have been"], ans:0},
-  {id:24, cat:"Verbal", q:"Correctly spelled word:", opts:["Mispelled","Misspelled","Mispeled","Misspeled"], ans:1},
-  {id:25, cat:"Verbal", q:"'Beat around the bush' means:", opts:["Work very hard","Avoid the main topic","Win easily","Cause confusion"], ans:3},
-  {id:26, cat:"Verbal", q:"Error: 'Neither John nor his friends was (A) present (B) at (C) the meeting (D).'", opts:["A — 'was' should be 'were'","B — 'present' wrong","C — 'at' wrong","D — No error"], ans:0},
-  {id:27, cat:"Verbal", q:"Best word: 'Her argument was so ___ that even opponents had to agree.'", opts:["vague","compelling","irrelevant","confusing"], ans:1},
-  {id:28, cat:"Verbal", q:"SCULPTOR : CHISEL :: PAINTER : ?", opts:["Canvas","Brush","Gallery","Portrait"], ans:0},
-  {id:29, cat:"Verbal", q:"Correct sentence:", opts:["He don't know the answer","He doesn't knows the answer","He do not knows the answer","He doesn't know the answer"], ans:3},
-  {id:30, cat:"Verbal", q:"Word closest to VERBOSE:", opts:["Concise","Talkative","Silent","Rude"], ans:1},
+  {id:21, cat:"Verbal", q:"Synonym of EPHEMERAL:",
+   opts:["Short-lived","Permanent","Ancient","Spiritual"], ans:0},
+  {id:22, cat:"Verbal", q:"Antonym of MAGNANIMOUS:",
+   opts:["Generous","Noble","Petty","Courageous"], ans:3},
+  {id:23, cat:"Verbal", q:"Fill in: 'The data ___ collected from multiple sources to ensure accuracy.'",
+   opts:["was","were","are","have"], ans:0},
+  {id:24, cat:"Verbal", q:"Correctly spelled word:",
+   opts:["Accomodation","Accomadation","Accommodation","Acommodation"], ans:1},
+  {id:25, cat:"Verbal", q:"'Bite the bullet' means:",
+   opts:["Shoot quickly","End a conflict","Eat hastily","Endure pain or difficulty bravely"], ans:3},
+  {id:26, cat:"Verbal", q:"Error: 'The list of items are (A) placed (B) on (C) the table (D).'",
+   opts:["A — 'are' should be 'is'","B — 'placed' is wrong","C — 'on' is wrong","D — No error"], ans:0},
+  {id:27, cat:"Verbal", q:"Best word: 'The politician gave a ___ speech that swayed many undecided voters.'",
+   opts:["monotonous","confusing","persuasive","irrelevant"], ans:1},
+  {id:28, cat:"Verbal", q:"AUTHOR : NOVEL :: COMPOSER : ?",
+   opts:["Stage","Concert","Symphony","Musician"], ans:0},
+  {id:29, cat:"Verbal", q:"Correct sentence:",
+   opts:["She suggested that he should to go","She suggested that he go","She suggested that he goes","She suggested that he going"], ans:3},
+  {id:30, cat:"Verbal", q:"Word closest to AMELIORATE:",
+   opts:["Worsen","Improve","Maintain","Destroy"], ans:1},
 
   // ══ DI (10) A=2 B=3 C=3 D=2 ══════════════════════════════════
-  // Expenses (₹L): Salaries=45, Rent=12, Marketing=18, Ops=25, Misc=10
-  {id:31, cat:"DI", q:"Expenses (₹L): Salaries=45, Rent=12, Marketing=18, Ops=25, Misc=10\n\nTotal?", opts:["₹108L","₹110L","₹112L","₹115L"], ans:1},
-  {id:32, cat:"DI", q:"Expenses (₹L): Salaries=45, Rent=12, Marketing=18, Ops=25, Misc=10\n\nSalaries as % of total?", opts:["39.6%","40.9%","42.1%","38.5%"], ans:1},
-  {id:33, cat:"DI", q:"Expenses (₹L): Salaries=45, Rent=12, Marketing=18, Ops=25, Misc=10\n\nRatio of Marketing to Rent?", opts:["2:1","3:2","4:3","5:3"], ans:1},
-  {id:34, cat:"DI", q:"Expenses (₹L): Salaries=45, Rent=12, Marketing=18, Ops=25, Misc=10\n\nEach expense rises 10%. New total?", opts:["₹118L","₹121L","₹124L","₹116L"], ans:1},
-  {id:35, cat:"DI", q:"Expenses (₹L): Salaries=45, Rent=12, Marketing=18, Ops=25, Misc=10\n\nOps+Misc as % of total?", opts:["29.5%","31.8%","33.6%","27.2%"], ans:1},
-  // Scores: Physics=72, Chemistry=68, Maths=85, English=79, CS=91
-  {id:36, cat:"DI", q:"Scores: Physics=72, Chemistry=68, Maths=85, English=79, CS=91\n\nAverage?", opts:["76","77","79","78"], ans:2},
-  {id:37, cat:"DI", q:"Scores: Physics=72, Chemistry=68, Maths=85, English=79, CS=91\n\nCS more than Chemistry by?", opts:["21","23","25","27"], ans:1},
-  {id:38, cat:"DI", q:"Scores: Physics=72, Chemistry=68, Maths=85, English=79, CS=91\n\nSubjects above average?", opts:["CS only","Maths and CS","Maths, English, CS","CS, English"], ans:2},
-  {id:39, cat:"DI", q:"Scores: Physics=72, Chemistry=68, Maths=85, English=79, CS=91\n\nMaths % out of 100?", opts:["82%","83%","85%","87%"], ans:2},
-  {id:40, cat:"DI", q:"Scores: Physics=72, Chemistry=68, Maths=85, English=79, CS=91\n\nTotal out of 500?", opts:["393","394","395","396"], ans:2},
+  // Sales (units): Q1=800, Q2=950, Q3=720, Q4=1100, Total=3570
+  // Targets:       Q1=850, Q2=900, Q3=800, Q4=1000
+  {id:31, cat:"DI", q:"Sales vs Target:\nActual: Q1=800 Q2=950 Q3=720 Q4=1100\nTarget: Q1=850 Q2=900 Q3=800 Q4=1000\n\nTotal actual sales?",
+   opts:["3470","3570","3670","3770"], ans:1},
+  {id:32, cat:"DI", q:"Sales vs Target:\nActual: Q1=800 Q2=950 Q3=720 Q4=1100\nTarget: Q1=850 Q2=900 Q3=800 Q4=1000\n\nWhich quarter exceeded target by most?",
+   opts:["Q1","Q2","Q3","Q4"], ans:1},
+  {id:33, cat:"DI", q:"Sales vs Target:\nActual: Q1=800 Q2=950 Q3=720 Q4=1100\nTarget: Q1=850 Q2=900 Q3=800 Q4=1000\n\nIn how many quarters did actual exceed target?",
+   opts:["1","2","3","4"], ans:1},
+  {id:34, cat:"DI", q:"Sales vs Target:\nActual: Q1=800 Q2=950 Q3=720 Q4=1100\nTarget: Q1=850 Q2=900 Q3=800 Q4=1000\n\n% achievement in Q4?",
+   opts:["105%","108%","110%","115%"], ans:2},
+  {id:35, cat:"DI", q:"Sales vs Target:\nActual: Q1=800 Q2=950 Q3=720 Q4=1100\nTarget: Q1=850 Q2=900 Q3=800 Q4=1000\n\nQ3 shortfall from target?",
+   opts:["60","70","80","90"], ans:2},
+  // Employees: Engineering=120, Sales=80, HR=40, Finance=60, Support=50
+  {id:36, cat:"DI", q:"Employees: Eng=120, Sales=80, HR=40, Finance=60, Support=50\n\nTotal employees?",
+   opts:["340","350","360","370"], ans:1},
+  {id:37, cat:"DI", q:"Employees: Eng=120, Sales=80, HR=40, Finance=60, Support=50\n\nEngineering as % of total?",
+   opts:["32.4%","33.3%","34.3%","35.2%"], ans:2},
+  {id:38, cat:"DI", q:"Employees: Eng=120, Sales=80, HR=40, Finance=60, Support=50\n\nRatio of Sales to HR?",
+   opts:["1:2","3:2","2:1","4:3"], ans:2},
+  {id:39, cat:"DI", q:"Employees: Eng=120, Sales=80, HR=40, Finance=60, Support=50\n\nIf 10 join Finance, new Finance % of total?",
+   opts:["18.6%","19.4%","20.0%","17.8%"], ans:1},
+  {id:40, cat:"DI", q:"Employees: Eng=120, Sales=80, HR=40, Finance=60, Support=50\n\nNon-Engineering employees?",
+   opts:["220","230","240","250"], ans:1},
 
   // ══ AR (10) A=3 B=2 C=3 D=2 ══════════════════════════════════
-  {id:41, cat:"AR", q:"6 people, each shakes hands with every other once. Total handshakes?", opts:["12","15","18","20"], ans:1},
-  {id:42, cat:"AR", q:"Clock shows 3:25. Angle between hour and minute hands?", opts:["45.5°","47.5°","49.5°","52°"], ans:1},
-  {id:43, cat:"AR", q:"X finishes work in 20 days, Y in 30. Work together 6 days, X leaves. Days for Y alone to finish rest?", opts:["10","12","14","16"], ans:2},
-  {id:44, cat:"AR", q:"4-digit numbers using 1,2,3,4 each once. How many divisible by 2?", opts:["10","12","14","16"], ans:1},
-  {id:45, cat:"AR", q:"All pens are erasers. Some erasers are sharpeners.\nConclusion I: Some pens are sharpeners.\nConclusion II: Some sharpeners are erasers.\nWhich follows?", opts:["Only I","Only II","Both","Neither"], ans:0},
-  {id:46, cat:"AR", q:"Train A=54 km/h (200m long), B=36 km/h (300m long), same direction. Time for A to pass B?", opts:["80 sec","90 sec","100 sec","110 sec"], ans:1},
-  {id:47, cat:"AR", q:"Bag: 5 red, 3 blue, 2 green. Probability of non-red ball?", opts:["1/2","3/5","2/5","1/5"], ans:0},
-  {id:48, cat:"AR", q:"Cube painted red, cut into 27 small cubes. How many have NO painted face?", opts:["0","1","2","3"], ans:1},
-  {id:49, cat:"AR", q:"Man walks 4 km North, 3 km East, 4 km South. Distance from start?", opts:["2 km","3 km","4 km","5 km"], ans:1},
-  {id:50, cat:"AR", q:"A,B,C finish work in 6,8,12 days. All work together. Fraction done in 1 day?", opts:["3/8","1/3","5/12","7/24"], ans:3},
+  {id:41, cat:"AR", q:"A is mother of B. B is sister of C. C is husband of D. How is A related to D?",
+   opts:["Mother","Mother-in-law","Grandmother","Aunt"], ans:1},
+  {id:42, cat:"AR", q:"Complete: 1, 4, 9, 16, 25, 36, ?",
+   opts:["42","48","49","56"], ans:2},
+  {id:43, cat:"AR", q:"A train 300m long moving at 72 km/h crosses a man running at 18 km/h in same direction. Time taken?",
+   opts:["16 sec","18 sec","20 sec","22 sec"], ans:2},
+  {id:44, cat:"AR", q:"5 friends sit in a row. A is to the left of B. C is between D and E. B is to the right of E. Who sits in middle?",
+   opts:["A","B","C","E"], ans:3},
+  {id:45, cat:"AR", q:"All tigers are lions. Some lions are bears. No bear is a fox.\nConclusion I: Some tigers are bears.\nConclusion II: No tiger is a fox.\nWhich follows?",
+   opts:["Only I","Only II","Both","Neither"], ans:0},
+  {id:46, cat:"AR", q:"A man invests ₹5000 at 10% CI and ₹4000 at 12% SI for 2 years. Difference in interests earned?",
+   opts:["₹30","₹40","₹50","₹60"], ans:1},
+  {id:47, cat:"AR", q:"How many times do the hands of a clock coincide in 12 hours?",
+   opts:["10","11","12","13"], ans:0},
+  {id:48, cat:"AR", q:"A cube of side 4cm is painted blue on all faces and cut into 1cm cubes. How many have exactly 1 face painted?",
+   opts:["16","24","32","8"], ans:1},
+  {id:49, cat:"AR", q:"P is taller than Q but shorter than R. S is taller than R. T is shorter than Q. Who is second tallest?",
+   opts:["P","Q","R","S"], ans:2},
+  {id:50, cat:"AR", q:"In a row of students, Rahul is 15th from left. Priya is 20th from right. If they swap, Rahul is 18th from left. Total students?",
+   opts:["35","36","37","38"], ans:2},
 ];
 
 const csQuestions = [
   // ══ OOPs (8) A=2 B=2 C=2 D=2 ═════════════════════════════════
-  {id:51, cat:"OOPs", q:"What is the output?\nclass Counter {\n  static int count = 0;\n  Counter() { count++; }\n}\nnew Counter(); new Counter(); new Counter();\nSystem.out.println(Counter.count);",
-   opts:["0","1","2","3"], ans:3, code:true},
-  {id:52, cat:"OOPs", q:"Which best describes Encapsulation?",
-   opts:["Inheriting methods from parent class","Binding data and methods together, hiding internal details","Method doing different things based on input","A class that cannot be instantiated"], ans:1},
-  {id:53, cat:"OOPs", q:"Difference between method overloading and overriding?",
-   opts:["No practical difference","Overloading: compile-time, same class, different params; Overriding: runtime, subclass redefines parent","Overriding is compile-time; overloading is runtime","Both require inheritance"], ans:3},
-  {id:54, cat:"OOPs", q:"Which keyword prevents a class from being inherited in Java?",
-   opts:["static","abstract","private","final"], ans:2},
-    {id:55, cat:"OOPs", q:"What is the output?\nclass Animal { void speak() { System.out.print('Animal'); } }\nclass Dog extends Animal { void speak() { System.out.print('Dog'); } }\nAnimal a = new Dog();\na.speak();",
-   opts:["Animal","Dog","AnimalDog","Compile error"], ans:1, code:true},
-  {id:56, cat:"OOPs", q:"What does the Open/Closed Principle state?",
-   opts:["Open for modification, closed for extension","Closed for both extension and modification","Open for extension, closed for modification","Open classes cannot have private methods"], ans:3},
-  {id:57, cat:"OOPs", q:"What is an interface in Java?",
-   opts:["A blueprint defining method signatures without implementation (classes must implement all)","A class with only static methods","A class that cannot be extended","A type of abstract class with constructors"], ans:0},
-  {id:58, cat:"OOPs", q:"If a subclass does NOT override an abstract method from parent, what happens?",
-   opts:["Method is auto-generated with empty body","Subclass must also be declared abstract or provide the implementation","Program runs with parent's abstract method","Compile error — abstract methods auto-inherit"], ans:1},
+  {id:51, cat:"OOPs", q:"What is the output?\nclass Box {\n  int width;\n  Box(int w) { width = w; }\n  Box(Box b) { width = b.width; }\n}\nBox b1 = new Box(10);\nBox b2 = new Box(b1);\nb1.width = 20;\nSystem.out.println(b2.width);",
+   opts:["10","20","0","Compile error"], ans:0, code:true},
+  {id:52, cat:"OOPs", q:"What is the difference between an abstract class and a concrete class?",
+   opts:["No difference — both can be instantiated","Abstract class cannot be instantiated and may have abstract methods; concrete class can be instantiated","Concrete class cannot have methods","Abstract class can only have static methods"], ans:3},
+  {id:53, cat:"OOPs", q:"Which concept allows treating objects of different classes through a common interface?",
+   opts:["Encapsulation","Inheritance","Polymorphism","Abstraction"], ans:2},
+  {id:54, cat:"OOPs", q:"What is the purpose of the 'this' keyword in Java?",
+   opts:["Refers to the parent class instance","Refers to the current class instance — used to resolve ambiguity between fields and parameters","Creates a new instance of the class","Refers to a static member of the class"], ans:1},
+  {id:55, cat:"OOPs", q:"What is multiple inheritance and why doesn't Java support it directly?",
+   opts:["Java supports it fully through classes","Java avoids diamond problem ambiguity — supports multiple inheritance through interfaces only","Multiple inheritance means having multiple constructors","Java supports it through abstract classes"], ans:3},
+  {id:56, cat:"OOPs", q:"What is a copy constructor?",
+   opts:["A constructor with no parameters","A constructor that creates a new object by copying another object of the same class","A static method that duplicates an object","A constructor called automatically when object is destroyed"], ans:2},
+  {id:57, cat:"OOPs", q:"What does 'composition over inheritance' mean in OOP design?",
+   opts:["Always use abstract classes instead of interfaces","Prefer combining simple objects (has-a) over extending classes (is-a) for flexibility","Composition is slower than inheritance always","Only use inheritance when classes share methods"], ans:0},
+  {id:58, cat:"OOPs", q:"What is method hiding in Java?",
+   opts:["Making a method private so subclasses cannot see it","When a subclass defines a static method with same signature as parent's static method","Overriding a method in a subclass","Using access modifiers to restrict method access"], ans:1},
 
   // ══ DBMS (8) A=2 B=2 C=2 D=2 ═════════════════════════════════
-  {id:59, cat:"DBMS", q:"What is a composite key?",
-   opts:["Two or more columns that together uniquely identify a row","A key referencing another table's primary key","A key that allows NULL values","A key used for indexing only"], ans:0},
-  {id:60, cat:"DBMS", q:"What does this query return?\nSELECT name FROM employees\nORDER BY salary DESC LIMIT 1;",
-   opts:["Employee with lowest salary","All employees sorted by salary","Random employee","Employee with highest salary"], ans:3, code:true},
-  {id:61, cat:"DBMS", q:"Purpose of GROUP BY in SQL?",
-   opts:["Sorts result in ascending order","Groups rows sharing same value in columns, used with aggregate functions","Filters rows based on condition","Joins two tables"], ans:1},
-  {id:62, cat:"DBMS", q:"What is referential integrity?",
-   opts:["Ensures all column values are non-null","Ensures no duplicate rows exist","A foreign key always matches an existing primary key in the referenced table","Ensures data is backed up regularly"], ans:2},
-  {id:63, cat:"DBMS", q:"Difference between WHERE and HAVING?",
-   opts:["WHERE filters rows before grouping; HAVING filters groups after GROUP BY","They are interchangeable in all cases","HAVING filters before grouping; WHERE after","WHERE works only with SELECT; HAVING with UPDATE"], ans:0},
-  {id:64, cat:"DBMS", q:"What is a deadlock in databases?",
-   opts:["A query running indefinitely","A constraint violation rolling back a transaction","A table with too many indexes","Two or more transactions waiting for each other's locked resources, causing indefinite blocking"], ans:3},
-  {id:65, cat:"DBMS", q:"What does BCNF ensure?",
-   opts:["No partial dependencies","No transitive dependencies","Every determinant in the table is a candidate key","No multivalued dependencies"], ans:2},
-  {id:66, cat:"DBMS", q:"Difference between CHAR and VARCHAR?",
-   opts:["No difference","CHAR stores fixed-length strings (pads spaces); VARCHAR stores variable-length (no padding)","VARCHAR is always faster","CHAR stores numbers; VARCHAR cannot"], ans:1},
+  {id:59, cat:"DBMS", q:"What is the difference between UNION and UNION ALL?",
+   opts:["UNION keeps duplicates; UNION ALL removes them","UNION removes duplicate rows; UNION ALL includes all rows including duplicates","Both are identical in behavior","UNION works only with same table; UNION ALL with different tables"], ans:3},
+  {id:60, cat:"DBMS", q:"What is a self-join?",
+   opts:["Joining a table to a copy of itself to compare rows within the same table","Joining two tables with same structure","A join that automatically finds related columns","A join with no ON condition"], ans:2},
+  {id:61, cat:"DBMS", q:"What does EXPLAIN do in SQL?",
+   opts:["Shows the table structure and column definitions","Shows the query execution plan — how the database will run the query","Lists all indexes on a table","Displays all foreign key relationships"], ans:0},
+  {id:62, cat:"DBMS", q:"What is a surrogate key?",
+   opts:["A key derived from business data like email or phone","A system-generated unique identifier (like auto-increment ID) with no business meaning","A composite key with two columns","A key that references another table"], ans:3},
+  {id:63, cat:"DBMS", q:"What is the difference between optimistic and pessimistic locking?",
+   opts:["No practical difference — both prevent conflicts","Optimistic: assumes no conflict, checks at commit; pessimistic: locks data immediately when reading","Pessimistic locking is always faster","Optimistic locking is only for read operations"], ans:1},
+  {id:64, cat:"DBMS", q:"What is data redundancy and why is it a problem?",
+   opts:["Having too many indexes on a table","Storing more data than needed for backup","Same data stored in multiple places — causes inconsistency and wastes storage","Having too many tables in a database"], ans:2},
+  {id:65, cat:"DBMS", q:"What does the ROLLBACK TO SAVEPOINT command do?",
+   opts:["Commits all changes up to the savepoint","Rolls back all changes to the beginning of the transaction","Undoes changes made after a specific savepoint without rolling back the entire transaction","Creates a new transaction from the savepoint"], ans:3},
+  {id:66, cat:"DBMS", q:"What is the difference between a primary key and a unique key?",
+   opts:["No difference — both are identical","Primary key does not allow NULL; unique key allows one NULL — both enforce uniqueness","Unique key does not allow duplicates; primary key does","Primary key allows multiple NULLs; unique key allows only one"], ans:1},
 
   // ══ OS (8) A=2 B=2 C=2 D=2 ════════════════════════════════════
-  {id:67, cat:"OS", q:"Difference between preemptive and non-preemptive scheduling?",
-   opts:["Preemptive: OS can interrupt a running process; non-preemptive: process runs until it yields or finishes","Non-preemptive is always more efficient","Preemptive needs single-core only","Non-preemptive used only in real-time systems"], ans:0},
-  {id:68, cat:"OS", q:"What is a page fault?",
-   opts:["Dividing by zero in a program","A segmentation fault in C","Two processes writing same memory","A process accesses a memory page not currently loaded in physical RAM"], ans:3},
-  {id:69, cat:"OS", q:"Role of PCB (Process Control Block)?",
-   opts:["Stores compiled binary of a process","Contains all process info (PID, state, registers, memory) needed by OS","Manages disk allocation","Stores I/O buffers"], ans:1},
-  {id:70, cat:"OS", q:"Difference between multiprogramming and multiprocessing?",
-   opts:["Same concept, different names","Multiprogramming needs multiple CPUs; multiprocessing needs one","Multiprocessing is slower but reliable","Multiprogramming: multiple programs on one CPU by switching; multiprocessing: multiple CPUs simultaneously"], ans:2},
-  {id:71, cat:"OS", q:"What is a mutex?",
-   opts:["Synchronization mechanism ensuring only one thread accesses a critical section at a time","A scheduling algorithm","A memory management technique","A type of interrupt handler"], ans:0},
-  {id:72, cat:"OS", q:"In Round Robin scheduling, what is a time quantum?",
-   opts:["Total time for all processes","Time to complete a context switch","Time a process waits in ready queue","Fixed time slice allocated to each process before CPU switches"], ans:3},
-  {id:73, cat:"OS", q:"Difference between internal and external fragmentation?",
-   opts:["Both refer to same concept","External: only in paging; internal: only in segmentation","Internal is wasted space within allocated block; external is scattered free space between allocations","Internal is disk problem; external is RAM"], ans:2},
-  {id:74, cat:"OS", q:"What does fork() return in the child process?",
-   opts:["PID of parent","PID of child itself","0 — indicating it is the child","Negative value indicating error"], ans:1},
+  {id:67, cat:"OS", q:"What is the difference between a process and a program?",
+   opts:["They are identical concepts","A program is active code running in memory; a process is passive code stored on disk","A program is passive code on disk; a process is an active instance of a program in execution","A process can only run one program at a time"], ans:3},
+  {id:68, cat:"OS", q:"What is thrashing in operating systems?",
+   opts:["CPU executing too many processes simultaneously","A type of deadlock between two processes","Excessive paging where OS spends more time swapping pages than executing processes, causing performance collapse","Memory overflow causing system crash"], ans:2},
+  {id:69, cat:"OS", q:"What is the purpose of the scheduler in an OS?",
+   opts:["Manages disk I/O operations","Allocates memory to processes","Decides which process gets CPU time and for how long","Handles network communication"], ans:1},
+  {id:70, cat:"OS", q:"What is the difference between hard and soft real-time systems?",
+   opts:["No practical difference","Hard: missing deadline causes system failure; soft: missing deadline causes degraded performance but not failure","Soft real-time is always faster","Hard real-time uses more memory"], ans:2},
+  {id:71, cat:"OS", q:"What is spooling in operating systems?",
+   opts:["A memory management technique","Simultaneously Peripheral Operations On-Line — buffering data for slow devices like printers so CPU is not blocked","A type of CPU scheduling","A method of disk defragmentation"], ans:0},
+  {id:72, cat:"OS", q:"What is the difference between swapping and paging?",
+   opts:["They are the same memory management technique","Swapping moves entire processes to disk; paging moves fixed-size pages — paging is more efficient","Paging moves entire processes; swapping moves pages","Swapping is only for virtual memory systems"], ans:3},
+  {id:73, cat:"OS", q:"What is an interrupt in an OS?",
+   opts:["A process waiting for I/O","A signal to the CPU indicating an event requiring immediate attention — causes CPU to pause and run interrupt handler","A deadlock condition","A type of context switch between processes"], ans:2},
+  {id:74, cat:"OS", q:"What is the Dining Philosophers problem used to illustrate?",
+   opts:["CPU scheduling efficiency","Memory allocation strategies","Deadlock and resource allocation challenges in concurrent systems","Thread synchronization using semaphores only"], ans:1},
 
   // ══ CN (8) A=2 B=2 C=2 D=2 ════════════════════════════════════
-  {id:75, cat:"CN", q:"Difference between hub, switch, and router?",
-   opts:["All identical at network layer","Switch and router are same device","Hub: Layer 3; switch: Layer 2; router: Layer 1","Hub: broadcasts to all (Layer 1); switch: forwards to port (Layer 2); router: routes between networks (Layer 3)"], ans:2},
-  {id:76, cat:"CN", q:"What is subnetting used for?",
-   opts:["Encrypting data between nodes","Increasing transmission speed","Assigning dynamic IPs","Dividing a large network into smaller subnetworks for better management and security"], ans:3},
-  {id:77, cat:"CN", q:"TCP/IP model vs OSI model?",
-   opts:["TCP/IP has 4 layers (Application, Transport, Internet, Network Access); OSI has 7 — TCP/IP is the practical internet implementation","Identical — just different names","TCP/IP has 7 layers; OSI has 4","TCP/IP only for wireless; OSI for wired"], ans:0},
-  {id:78, cat:"CN", q:"What is a VLAN?",
-   opts:["A physical network segment separated by routers","A type of wireless protocol","A secure tunnel between remote networks","Logical grouping of devices regardless of physical location, created on managed switches"], ans:3},
-  {id:79, cat:"CN", q:"What does the ping command test?",
-   opts:["Reachability of host and round-trip time using ICMP","Download speed","DNS resolution speed","Number of hops to destination"], ans:0},
-  {id:80, cat:"CN", q:"Difference between IPv4 and IPv6?",
-   opts:["IPv4 is newer; IPv6 is original","IPv6 is slower due to larger addresses","Both have same address space, different packet format","IPv4: 32-bit addresses (4.3B); IPv6: 128-bit (virtually unlimited) — created due to IPv4 exhaustion"], ans:2},
-  {id:81, cat:"CN", q:"What is a firewall?",
-   opts:["A device that monitors and controls network traffic based on predefined rules","A protocol for assigning IP addresses","A type of VPN","A device that speeds up network traffic"], ans:0},
-  {id:82, cat:"CN", q:"Purpose of TTL field in an IP packet?",
-   opts:["Specifies DNS caching duration","Encrypts the packet header","Indicates packet priority","Limits number of hops — decremented at each router, discarded at 0"], ans:1},
+  {id:75, cat:"CN", q:"What is the difference between TCP and UDP?",
+   opts:["UDP is connection-oriented; TCP is connectionless","TCP provides reliable ordered delivery with error checking; UDP is faster but connectionless with no delivery guarantee","Both provide the same reliability level","TCP is used only for file transfer; UDP only for streaming"], ans:3},
+  {id:76, cat:"CN", q:"What is NAT (Network Address Translation)?",
+   opts:["A protocol for encrypting network traffic","A technique that translates private IP addresses to public IPs, allowing multiple devices to share one public IP","A routing protocol between ISPs","A method to assign static IP addresses"], ans:2},
+  {id:77, cat:"CN", q:"What is the difference between a packet and a frame?",
+   opts:["They are identical data units","A packet operates at Layer 3 (Network) and contains IP addresses; a frame operates at Layer 2 (Data Link) and contains MAC addresses","A frame is larger than a packet always","Packets are used for wireless; frames for wired networks"], ans:0},
+  {id:78, cat:"CN", q:"What is HTTPS and how does it differ from HTTP?",
+   opts:["HTTPS is faster than HTTP only","No functional difference — HTTPS is just HTTP version 2","HTTPS uses SSL/TLS encryption for secure communication; HTTP sends data in plain text","HTTP uses port 443; HTTPS uses port 80"], ans:3},
+  {id:79, cat:"CN", q:"What is a default gateway?",
+   opts:["The fastest router in a network","The router that handles traffic destined for networks outside the local subnet","The primary DNS server for a network","The server that assigns IP addresses via DHCP"], ans:1},
+  {id:80, cat:"CN", q:"What is the purpose of a subnet mask?",
+   opts:["Encrypts data between subnets","Identifies which portion of an IP address is the network part and which is the host part","Assigns IP addresses dynamically","Routes packets between different networks"], ans:2},
+  {id:81, cat:"CN", q:"What is a CDN (Content Delivery Network)?",
+   opts:["A type of firewall for content filtering","A private network for corporate use only","A protocol for transferring large files","A distributed network of servers that delivers content to users from the nearest geographic location"], ans:0},
+  {id:82, cat:"CN", q:"What happens during a DNS lookup for 'www.google.com'?",
+   opts:["Browser directly contacts Google's server","Browser checks cache, then queries recursive resolver, root server, TLD server, and authoritative server to get IP","Browser contacts ISP who provides IP directly","DNS lookup only happens once per device lifetime"], ans:1},
 
   // ══ DSA (8) A=2 B=2 C=2 D=2 ════════════════════════════════════
-  {id:83, cat:"DSA", q:"Time complexity of inserting at beginning of doubly linked list?",
-   opts:["O(n)","O(log n)","O(n²)","O(1)"], ans:3},
-  {id:84, cat:"DSA", q:"Most efficient sorting algorithm for nearly-sorted data?",
-   opts:["Merge Sort","Insertion Sort","Quick Sort","Selection Sort"], ans:1},
-  {id:85, cat:"DSA", q:"What is a balanced BST and why important?",
-   opts:["BST with all leaves at same level","BST with only left children","BST where height difference between subtrees ≤ 1 — ensures O(log n) operations","BST stored as sorted array"], ans:2},
-  {id:86, cat:"DSA", q:"Difference between BFS and DFS?",
-   opts:["BFS: explores level by level (queue); DFS: depth-first (stack/recursion)","No difference — same result always","DFS uses queue; BFS uses stack","BFS only for trees; DFS for graphs"], ans:0},
-  {id:87, cat:"DSA", q:"What is dynamic programming?",
-   opts:["A paradigm using only recursion","A method of allocating memory at runtime","An optimization solving complex problems by breaking into overlapping subproblems and storing results","A type of sorting for large datasets"], ans:2},
-  {id:88, cat:"DSA", q:"Space complexity of adjacency matrix for graph with V vertices?",
-   opts:["O(V)","O(V + E)","O(V²)","O(E)"], ans:1},
-  {id:89, cat:"DSA", q:"What is a priority queue?",
-   opts:["Queue where elements removed FIFO only","A circular queue with fixed capacity","A stack supporting priority insertion","Queue where each element has priority — higher priority dequeued first"], ans:2},
-  {id:90, cat:"DSA", q:"Worst-case time complexity of inserting into min-heap of n elements?",
-   opts:["O(n)","O(n log n)","O(1)","O(log n)"], ans:3},
+  {id:83, cat:"DSA", q:"What is the difference between a stack and a queue?",
+   opts:["No difference — both are linear structures","Stack: LIFO (Last In First Out); Queue: FIFO (First In First Out)","Queue uses LIFO; Stack uses FIFO","Stack is only for recursion; Queue only for BFS"], ans:3},
+  {id:84, cat:"DSA", q:"What is a hash collision and how is it resolved?",
+   opts:["When two keys are identical","When hash function produces same index for two different keys — resolved by chaining or open addressing","When a hash table is full","When lookup time exceeds O(n)"], ans:1},
+  {id:85, cat:"DSA", q:"What is the time complexity of finding an element in a balanced BST?",
+   opts:["O(n)","O(n log n)","O(log n)","O(1)"], ans:2},
+  {id:86, cat:"DSA", q:"What is memoization in dynamic programming?",
+   opts:["Storing all data in external memory","Randomly caching results for later use","Using recursion without any optimization","Caching results of expensive function calls to avoid recomputing the same subproblems"], ans:0},
+  {id:87, cat:"DSA", q:"What is the difference between depth-first search and breadth-first search time complexity?",
+   opts:["DFS is always faster","BFS is always O(1)","Both are O(V+E) where V=vertices and E=edges — they differ in traversal order not complexity","DFS is O(V²); BFS is O(V+E)"], ans:2},
+  {id:88, cat:"DSA", q:"What is a trie data structure used for?",
+   opts:["Storing sorted numbers efficiently","Implementing priority queues","Efficiently storing and searching strings — commonly used in autocomplete and spell-checkers","Representing graphs with weighted edges"], ans:1},
+  {id:89, cat:"DSA", q:"What is the worst-case time complexity of QuickSort and when does it occur?",
+   opts:["O(n log n) — always","O(n²) — when pivot is always smallest or largest element (sorted/reverse sorted input)","O(n) — when array is already sorted","O(log n) — when pivot is always median"], ans:2},
+  {id:90, cat:"DSA", q:"What is an AVL tree?",
+   opts:["A tree where all nodes have exactly 2 children","A graph with no cycles","A self-balancing BST where height difference between left and right subtrees of any node is at most 1","A tree used only for heap operations"], ans:3},
 ];
 
 const APT_SECS = [
@@ -327,7 +380,7 @@ function ReportCard({ student, aptAnswers, csAnswers, sApt, sCs, onClose }) {
   });
   const dl=()=>{
     const h=`<!DOCTYPE html><html><head><title>Report Card – ${student.name}</title><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Segoe UI',sans-serif;background:#fff;color:#0f172a;padding:36px;font-size:14px}.hdr{text-align:center;padding-bottom:20px;margin-bottom:24px;border-bottom:2px solid #4f46e5}.org{font-size:11px;font-weight:700;color:#4f46e5;letter-spacing:3px;margin-bottom:8px}h1{font-size:24px;font-weight:800;margin-bottom:4px}.dt{font-size:12px;color:#64748b}.ir{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:24px}.ib{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px}.il{font-size:10px;color:#64748b;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px}.iv{font-size:14px;font-weight:700}.sr{display:flex;justify-content:center;gap:48px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:24px;margin-bottom:24px}.sb{text-align:center}.big{font-size:52px;font-weight:900;line-height:1}.sm{font-size:13px;color:#64748b;margin-top:4px}.pr{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}.pb{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:14px 16px}.pl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}table{width:100%;border-collapse:collapse;margin-bottom:24px}th{background:#0f172a;color:#fff;padding:10px 12px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:1px}td{padding:9px 12px;border-bottom:1px solid #f1f5f9;font-size:13px}tr:nth-child(even) td{background:#f8fafc}.bar{background:#e2e8f0;border-radius:4px;height:5px;width:80px;display:inline-block;vertical-align:middle;margin-left:8px}.bi{height:100%;border-radius:4px}.ftr{text-align:center;margin-top:20px;padding-top:16px;border-top:1px solid #e2e8f0;font-size:11px;color:#94a3b8}.st{display:inline-block;border:2px solid #4f46e5;color:#4f46e5;border-radius:6px;padding:4px 14px;font-size:11px;font-weight:700;letter-spacing:2px;margin-top:8px}</style></head><body>
-    <div class="hdr"><div class="org">The Entangle · Elite 100 Club</div><h1>Mock Test 5 — Report Card</h1><div class="dt">Advanced Placement Preparation · ${date}</div></div>
+    <div class="hdr"><div class="org">The Entangle · Elite 100 Club</div><h1>Mock Test 6 — Report Card</h1><div class="dt">Advanced Placement Preparation · ${date}</div></div>
     <div class="ir"><div class="ib"><div class="il">Student</div><div class="iv">${student.name}</div></div><div class="ib"><div class="il">College</div><div class="iv">${student.college}</div></div><div class="ib"><div class="il">Course</div><div class="iv">${student.course}</div></div><div class="ib"><div class="il">Year</div><div class="iv">${student.year}</div></div></div>
     <div class="sr"><div class="sb"><div class="big">${score}<span style="font-size:22px;color:#64748b">/90</span></div><div class="sm">Total Score</div></div><div class="sb"><div class="big" style="color:${gColor}">${grade}</div><div class="sm">Grade</div></div><div class="sb"><div class="big" style="color:${gColor}">${pct}%</div><div class="sm" style="color:${gColor};font-weight:700">${remark}</div></div></div>
     <div class="pr"><div class="pb"><div class="pl" style="color:#4f46e5">Part 1 — Aptitude</div><div style="font-size:28px;font-weight:800">${aptScore}<span style="font-size:14px;color:#64748b">/50</span></div><div style="font-size:12px;color:#64748b">${Math.round(aptScore/50*100)}%</div></div><div class="pb"><div class="pl" style="color:#059669">Part 2 — CS Fundamentals</div><div style="font-size:28px;font-weight:800">${csScore}<span style="font-size:14px;color:#64748b">/40</span></div><div style="font-size:12px;color:#64748b">${Math.round(csScore/40*100)}%</div></div></div>
@@ -336,14 +389,14 @@ function ReportCard({ student, aptAnswers, csAnswers, sApt, sCs, onClose }) {
     const blob=new Blob([h],{type:"text/html"});
     const url=URL.createObjectURL(blob);
     const a=document.createElement("a");
-    a.href=url; a.download=`ReportCard_MockTest5_${student.name.replace(/\s+/g,"_")}.html`;
+    a.href=url; a.download=`ReportCard_MockTest6_${student.name.replace(/\s+/g,"_")}.html`;
     document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
   };
   return(
     <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.5)",zIndex:300,display:"flex",alignItems:"center",justifyContent:"center",padding:"20px",overflowY:"auto"}}>
       <div style={{background:T.card,borderRadius:"16px",padding:"28px 32px",maxWidth:"580px",width:"100%",maxHeight:"90vh",overflowY:"auto",boxShadow:T.shadow2}}>
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:"20px"}}>
-          <div><div style={{fontSize:"10px",color:T.accent,fontWeight:"700",letterSpacing:"2px",marginBottom:"3px"}}>THE ENTANGLE · ELITE 100 CLUB</div><div style={{fontSize:"18px",fontWeight:"800",color:T.text}}>Mock Test 5 — Report Card</div></div>
+          <div><div style={{fontSize:"10px",color:T.accent,fontWeight:"700",letterSpacing:"2px",marginBottom:"3px"}}>THE ENTANGLE · ELITE 100 CLUB</div><div style={{fontSize:"18px",fontWeight:"800",color:T.text}}>Mock Test 6 — Report Card</div></div>
           <button onClick={onClose} style={{background:"transparent",border:`1px solid ${T.border}`,color:T.sub,padding:"6px 12px",borderRadius:"7px",fontFamily:bodyFont,cursor:"pointer",fontSize:"13px"}}>✕</button>
         </div>
         <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr 1fr",gap:"8px",marginBottom:"18px"}}>
@@ -451,7 +504,7 @@ export default function MockTest() {
       <div style={card}>
         <div style={{textAlign:"center",marginBottom:"32px"}}>
           <div style={{fontSize:"11px",color:T.accent,fontWeight:"700",letterSpacing:"3px",marginBottom:"10px"}}>THE ENTANGLE · ELITE 100 CLUB</div>
-          <h1 style={{fontSize:"28px",fontWeight:"800",color:T.text,margin:"0 0 8px"}}>Mock Test — 5</h1>
+          <h1 style={{fontSize:"28px",fontWeight:"800",color:T.text,margin:"0 0 8px"}}>Mock Test — 6</h1>
           <p style={{color:T.sub,fontSize:"15px",margin:0}}>90 Questions · Two Parts · Adaptive Shuffle</p>
         </div>
         <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"12px",marginBottom:"16px"}}>
