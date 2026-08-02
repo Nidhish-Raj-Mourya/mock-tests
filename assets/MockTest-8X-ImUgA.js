@@ -1,1 +1,0 @@
-import{t as e}from"./index-DM7GJc6D.js";import{t}from"./AptitudePractice-CwxnoNpk.js";var n=e();function r(){return(0,n.jsx)(t,{day:`Monday`,topic:`Number System`,kind:`number`,color:`#4f46e5`})}export{r as default};

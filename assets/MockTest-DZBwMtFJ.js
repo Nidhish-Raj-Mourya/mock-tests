@@ -1,1 +1,0 @@
-import{t as e}from"./index-DM7GJc6D.js";import{t}from"./AptitudePractice-CwxnoNpk.js";var n=e();function r(){return(0,n.jsx)(t,{day:`Saturday`,topic:`Simple and Compound Interest`,kind:`interest`,color:`#be123c`})}export{r as default};

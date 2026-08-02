@@ -1,0 +1,1 @@
+import{t as e}from"./index-BmXolDIu.js";import{t}from"./AptitudePractice-BQ2PFYMs.js";var n=e();function r(){return(0,n.jsx)(t,{day:`Tuesday`,topic:`Percentages`,kind:`percentage`,color:`#0891b2`})}export{r as default};
