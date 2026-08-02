@@ -1,0 +1,1 @@
+import{t as e}from"./index-CVg7pyM8.js";import{t}from"./AptitudePractice-tk8kMCss.js";var n=e();function r(){return(0,n.jsx)(t,{day:`Friday`,topic:`Averages`,kind:`average`,color:`#059669`})}export{r as default};
