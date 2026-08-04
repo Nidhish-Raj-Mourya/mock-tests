@@ -1,1 +1,0 @@
-import{t as e}from"./index-B_VwtDuE.js";import{t}from"./AptitudePractice-DKc0D9i8.js";var n=e();function r(){return(0,n.jsx)(t,{day:`Thursday`,topic:`Ratio and Proportion`,kind:`ratio`,color:`#7c3aed`})}export{r as default};
