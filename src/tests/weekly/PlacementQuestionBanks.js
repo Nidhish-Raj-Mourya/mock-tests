@@ -1,5 +1,10 @@
 import { numberSystemPlacementBank } from "./NumberSystemPlacementBank.js";
 import { percentagePlacementBank } from "./PercentagePlacementBank.js";
+import { mixturePlacementBank, pipesPlacementBank, timeWorkPlacementBank } from "./WorkRatePlacementBanks.js";
+import { timeDistancePlacementBank, trainsBoatsPlacementBank } from "./MotionPlacementBanks.js";
+import { algebraPlacementBank, mensurationPlacementBank } from "./AlgebraMensurationBanks.js";
+import { permutationPlacementBank, probabilityPlacementBank } from "./CombinatoricsProbabilityBanks.js";
+import { dataInterpretationPlacementBank, statisticsPlacementBank } from "./StatisticsDIBanks.js";
 
 export const PLACEMENT_LEVELS = [
   "Foundation Check",
@@ -348,6 +353,17 @@ export const PLACEMENT_BUILDERS = {
   ratio: ratioPlacementBank,
   average: averagePlacementBank,
   interest: interestPlacementBank,
+  mixture: mixturePlacementBank,
+  work: timeWorkPlacementBank,
+  pipes: pipesPlacementBank,
+  distance: timeDistancePlacementBank,
+  trainsBoats: trainsBoatsPlacementBank,
+  algebra: algebraPlacementBank,
+  mensuration: mensurationPlacementBank,
+  permutation: permutationPlacementBank,
+  probability: probabilityPlacementBank,
+  statistics: statisticsPlacementBank,
+  dataInterpretation: dataInterpretationPlacementBank,
 };
 
 export function auditPlacementBanks() {
