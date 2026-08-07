@@ -1,0 +1,1 @@
+import{t as e}from"./jsx-runtime-BnxRlLMJ.js";import{t}from"./index-CQAXIl8q.js";var n=e();function r(){return(0,n.jsx)(t,{day:`Thursday`,topic:`Ratio and Proportion`,kind:`ratio`,color:`#7c3aed`})}export{r as default};
