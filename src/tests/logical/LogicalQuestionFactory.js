@@ -23,8 +23,6 @@ export function createLogicalQuestion({
   idealTimeSeconds,
 }) {
   const options = [correct, ...distractors].map(String).filter((value, index, all) => value.trim() && all.indexOf(value) === index);
-  const fallbacks = ["Cannot be determined", "Only the first condition follows", "Only the second condition follows", "Neither condition follows", "Both conditions follow"];
-  for (const fallback of fallbacks) if (options.length < 4 && !options.includes(fallback)) options.push(fallback);
   if (options.length !== 4 || !options.includes(String(correct))) throw new Error(`Invalid logical options for ${subtopic} question ${id + 1}`);
   const depth = reasoningDepth || (assessmentStyle === "multi-step" ? "two-step" : "single-step");
   const sequence = assessmentStyle === "multi-step"

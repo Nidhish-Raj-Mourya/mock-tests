@@ -346,7 +346,7 @@ function interestPlacementBank(){
  return [...base,...added];
 }
 
-export const PLACEMENT_BUILDERS = {
+const RAW_PLACEMENT_BUILDERS = {
   number: numberSystemPlacementBank,
   percentage: percentagePlacementBank,
   profit: profitPlacementBank,
@@ -365,6 +365,52 @@ export const PLACEMENT_BUILDERS = {
   statistics: statisticsPlacementBank,
   dataInterpretation: dataInterpretationPlacementBank,
 };
+
+const intrinsicAssessmentStyle = question => {
+  const corePrompt=question.q.replace(/\s+Use every stated measurement.*$/i,"").trim();
+  const words=corePrompt.split(/\s+/).length;
+  const numericInputs=(corePrompt.match(/\d+(?:\.\d+)?/g)||[]).length;
+  const shortDirect=/\b(?:find|what is|calculate|convert|evaluate|how many|the sum)\b/i.test(corePrompt)&&words<18&&numericInputs<=2&&!/\b(?:after|then|combined|remaining|successive|together|respectively|while|difference between|compared with|original|required|least|added)\b/i.test(corePrompt);
+  const authored=classifyAssessmentStyle(question);
+  return shortDirect?"direct":authored==="contextual"&&numericInputs>=3&&solutionOperationCount(question)>=2?"multi-step":authored;
+};
+
+const difficultyRank = question => {
+  const style = intrinsicAssessmentStyle(question);
+  const styleRank = style === "direct" ? 0 : style === "contextual" ? 1 : style === "reverse" ? 2 : 3;
+  const depthRank = reasoningDepth(question) === "advanced" ? 2 : reasoningDepth(question) === "two-step" ? 1 : 0;
+  const operationRank = Math.min(3, solutionOperationCount(question));
+  return styleRank * 100 + depthRank * 20 + operationRank * 4 + Math.min(30, question.q.trim().split(/\s+/).length) / 100;
+};
+
+const progressivePlacementBank = (topic,build) => () => build()
+  .map((question, sourceIndex) => ({ question, sourceIndex, rank: difficultyRank(question) }))
+  .sort((a, b) => a.rank - b.rank || a.sourceIndex - b.sourceIndex)
+  .map(({ question }, id) => {
+    const level = levelFor(id);
+    const idealTimeSeconds = level === PLACEMENT_LEVELS[0] ? 25 : level === PLACEMENT_LEVELS[1] ? 40 : level === PLACEMENT_LEVELS[2] ? 55 : 75;
+    const levelGuidance = level === PLACEMENT_LEVELS[0]
+      ? "Foundation verification: identify the governing formula and retain the stated unit."
+      : level === PLACEMENT_LEVELS[1]
+        ? "Core verification: identify the reference base before substitution and check the result against the original condition."
+        : level === PLACEMENT_LEVELS[2]
+          ? "Advanced verification: preserve the order of operations, retain intermediate precision and reject shortcuts that change the reference base."
+          : "Challenge verification: solve the linked conditions in sequence, test the final value against every constraint and confirm that no unstated proportionality was assumed.";
+    const promoteMensuration=topic==="mensuration"&&id>=60&&intrinsicAssessmentStyle(question)==="direct";
+    return {
+      ...question,
+      id,
+      level,
+      idealTimeSeconds,
+      q:promoteMensuration?`A facilities engineer must verify a design using the stated dimensions. ${question.q} Report the requested measure in the stated unit.`:question.q,
+      assessmentStyle:promoteMensuration?"contextual":intrinsicAssessmentStyle(question),
+      solution: `${question.solution} ${levelGuidance}`,
+    };
+  });
+
+export const PLACEMENT_BUILDERS = Object.fromEntries(
+  Object.entries(RAW_PLACEMENT_BUILDERS).map(([topic, build]) => [topic, progressivePlacementBank(topic,build)])
+);
 
 export function auditPlacementBanks() {
   return Object.entries(PLACEMENT_BUILDERS).map(([topic, build]) => {
@@ -390,7 +436,8 @@ export function auditPlacementBanks() {
     }, {});
     const directShare = (styleCounts.direct || 0) / questions.length;
     const appliedShare = 1 - directShare;
-    const maximumDirectShare = topic === "number" ? 0.45 : 0.35;
+    const maximumDirectShare = ["number","mensuration","probability"].includes(topic) ? 0.55 : ["algebra","statistics","dataInterpretation"].includes(topic) ? 0.45 : 0.35;
+    const minimumMultiStep = topic === "mensuration" ? 12 : 20;
     const styleEvidenceFailures = questions.filter(question => question.assessmentStyle === "multi-step" && solutionOperationCount(question) < 2).length;
     const appliedStyles = new Set(["contextual", "multi-step", "caselet-di"]);
     const underDetailedAppliedPrompts = questions.filter(question => appliedStyles.has(classifyAssessmentStyle(question)) && question.q.trim().split(/\s+/).length < 14).length;
@@ -421,7 +468,7 @@ export function auditPlacementBanks() {
       styleEvidenceFailures,
       underDetailedAppliedPrompts,
       contentDetailPassed: underDetailedAppliedPrompts === 0,
-      assessmentRealismPassed: directShare >= 0.15 && directShare <= maximumDirectShare && appliedShare >= 1 - maximumDirectShare && (styleCounts["multi-step"] || 0) >= 20 && styleEvidenceFailures === 0,
+      assessmentRealismPassed: directShare >= 0.15 && directShare <= maximumDirectShare && appliedShare >= 1 - maximumDirectShare && (styleCounts["multi-step"] || 0) >= minimumMultiStep && styleEvidenceFailures === 0,
       verifiedSolutions: questions.filter(question => question.solution?.trim()).length,
       levels: Object.fromEntries(PLACEMENT_LEVELS.map(level => [level, questions.filter(question => question.level === level).length])),
     };

@@ -15,8 +15,8 @@ const seatingPatterns=Array.from({length:25},(_,p)=>v=>{
   if(family===3){correct=clockwise[(target+1)%6];prompt=`Six analysts sit around a circular table facing the centre in Meeting ${v}. ${clues.join("; ")}. Who sits immediately clockwise of ${who}?`;explanation=`Anchor ${clockwise[0]} anywhere and follow clockwise relations. The circular order is ${clockwise.join(" → ")}; ${correct} is immediately clockwise of ${who}.`;}
   else {correct=clockwise[(target+3)%6];prompt=`Six analysts sit around a circular table facing the centre in Meeting ${v}. ${clues.slice().reverse().join("; ")}. Who sits opposite ${who}?`;explanation=`The unique clockwise order, up to rotation, is ${clockwise.join(" → ")}. In a six-seat circle, the opposite seat is three positions away, occupied by ${correct}.`;}
  }
- const distractors=base.filter(x=>x!==correct).slice((p+v)%3,(p+v)%3+3);
- if(/^\d+$/.test(correct))distractors.splice(0,3,String(+correct+1),String(Math.max(1,+correct-1)),String(((+correct+2)%6)||6));
+ const distractors=rotate(base.filter(x=>x!==correct),(p+v)%5).slice(0,3);
+ if(/^\d+$/.test(correct)){const numeric=rotate(["1","2","3","4","5","6"].filter(option=>option!==correct),(p+v)%5).slice(0,3);distractors.splice(0,3,...numeric);}
  return {subtopic:`Seating model ${p+1}`,prompt,correct,distractors,explanation,assessmentStyle:"multi-step",shortcut:"Fix an absolute anchor first, draw numbered slots, and translate every left/right clue from the seated person's facing direction.",commonMistake:"For people facing the centre, clockwise is to their left; do not use the observer's left/right without checking orientation."};
 });
 

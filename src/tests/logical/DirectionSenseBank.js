@@ -15,7 +15,9 @@ const patterns=routes.map((route,index)=>v=>{
  const distance=Math.sqrt(x*x+y*y), askDirection=index%3===2;
  const prompt=`On Campus Map ${v}, a candidate starts from Gate P, walks ${legs.map(([d,n])=>`${n} m ${d}`).join(", then ")}. ${askDirection?"In which direction is the candidate from Gate P":"What is the shortest distance from the candidate's final position to Gate P"}?`;
  const correct=askDirection?direction(x,y):`${Number.isInteger(distance)?distance:distance.toFixed(2)} m`;
- const distractors=askDirection?[direction(-x,y),direction(x,-y),direction(-x,-y)]:[`${Math.abs(x)+Math.abs(y)} m`,`${Math.max(Math.abs(x),Math.abs(y))} m`,`${Math.abs(x-y)} m`];
+ const distractors=askDirection
+  ? ["North","North-East","East","South-East","South","South-West","West","North-West"].filter(option=>option!==correct).slice((index+v)%5,(index+v)%5+3)
+  : [...new Set([Math.abs(x)+Math.abs(y),Math.max(Math.abs(x),Math.abs(y)),Math.abs(x-y),distance+scale,distance+2*scale,distance+3*scale,distance+4*scale].map(value=>`${Number.isInteger(value)?value:value.toFixed(2)} m`))].filter(option=>option!==correct).slice(0,3);
  return {subtopic:`Route vector ${index+1}`,prompt,correct,distractors,explanation:`Taking east as +x and north as +y, the net displacement is (${x}, ${y}). ${askDirection?`Its signs place it toward ${correct}.`:`Pythagoras gives √(${x}² + ${y}²) = ${correct}.`}`,assessmentStyle:"multi-step",shortcut:"Cancel opposite movements first; use the remaining horizontal and vertical components to determine direction or apply Pythagoras.",commonMistake:"Do not add the total path length when the question asks for displacement or shortest distance."};
 });
 export const directionSenseLogicalBank=()=>buildLogicalBank(patterns);

@@ -2,6 +2,14 @@ import { buildLogicalBank } from "./LogicalQuestionFactory.js";
 
 const days=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 const leap=y=>y%400===0||(y%4===0&&y%100!==0);
+const completeDistractors=(correct,candidates)=>{
+ const result=[...new Set(candidates)].filter(option=>option!==correct);
+ if(/^\d+(?:\.\d+)?Â°$/.test(correct)){const value=Number.parseFloat(correct);for(const delta of [5,10,15,30])if(result.length<3&&!result.includes(`${value+delta}Â°`))result.push(`${value+delta}Â°`);}
+ else if(/^\d{1,2}:\d{2}$/.test(correct)){const [hour,minute]=correct.split(":").map(Number);for(const delta of [5,10,15,20])if(result.length<3)result.push(`${hour}:${String((minute+delta)%60).padStart(2,"0")}`);}
+ else if(/^\d+$/.test(correct)){for(const delta of [1,-1,2,3]){const option=String(Math.max(0,+correct+delta));if(result.length<3&&!result.includes(option)&&option!==correct)result.push(option);}}
+ else for(const day of days)if(result.length<3&&day!==correct&&!result.includes(day))result.push(day);
+ return result.slice(0,3);
+};
 const patterns=Array.from({length:25},(_,p)=>v=>{
  const family=p%5,band=Math.floor(p/5); let prompt,correct,explanation,distractors;
  if(family===0){const h=1+((band+2*v)%11),m=5*(2+band+v);const angle=Math.min(Math.abs(30*h-5.5*m),360-Math.abs(30*h-5.5*m));correct=`${angle}°`;prompt=`At ${h}:${String(m).padStart(2,"0")} on an analogue clock, what is the smaller angle between the hour and minute hands?`;explanation=`Minute-hand angle = 6×${m}; hour-hand angle = 30×${h}+0.5×${m}. Their smaller difference is ${correct}.`;distractors=[`${Math.abs(30*h-6*m)}°`,`${180-angle}°`,`${360-angle}°`];}
@@ -9,6 +17,6 @@ const patterns=Array.from({length:25},(_,p)=>v=>{
  else if(family===2){const start=(band+v)%7,n=35+7*band+3*v;correct=days[(start+n)%7];prompt=`Orientation Day ${v} is a ${days[start]}. On which weekday will the review held ${n} days later fall?`;explanation=`Only the remainder on division by 7 matters: ${n} mod 7 = ${n%7}. Move that many weekdays from ${days[start]} to get ${correct}.`;distractors=[days[(start+n+1)%7],days[(start+n+6)%7],days[(start+n+2)%7]];}
  else if(family===3){const year=2027+band*6+v,month=1+((band+v*2)%12),date=5+((band*3+v)%20),d=new Date(Date.UTC(year,month-1,date));correct=days[d.getUTCDay()];prompt=`On which weekday does ${String(date).padStart(2,"0")}-${String(month).padStart(2,"0")}-${year} fall?`;explanation=`Counting completed years, leap-day adjustments and month offsets modulo 7 places this date on ${correct}.`;distractors=[days[(d.getUTCDay()+1)%7],days[(d.getUTCDay()+6)%7],days[(d.getUTCDay()+2)%7]];}
  else {const from=1996+band*10+v,to=from+24+v;let count=0;for(let y=from;y<=to;y++)if(leap(y))count++;correct=String(count);prompt=`How many leap years occur from ${from} through ${to}, counting both endpoints?`;explanation=`Apply divisibility by 4, exclude century years unless divisible by 400, and count inclusively. The total is ${correct}.`;distractors=[String(count+1),String(Math.max(0,count-1)),String(count+2)];}
- return {subtopic:`Clock-calendar pattern ${p+1}`,prompt,correct,distractors,explanation,assessmentStyle:"multi-step",shortcut:"For clocks use 5.5m for relative motion; for calendars reduce all day shifts modulo 7 and apply the complete leap-year rule.",commonMistake:"The hour hand moves continuously; it is not fixed exactly on the hour number after minutes have elapsed."};
+ return {subtopic:`Clock-calendar pattern ${p+1}`,prompt,correct,distractors:completeDistractors(correct,distractors),explanation,assessmentStyle:"multi-step",shortcut:"For clocks use 5.5m for relative motion; for calendars reduce all day shifts modulo 7 and apply the complete leap-year rule.",commonMistake:"The hour hand moves continuously; it is not fixed exactly on the hour number after minutes have elapsed."};
 });
 export const clocksCalendarsLogicalBank=()=>buildLogicalBank(patterns);

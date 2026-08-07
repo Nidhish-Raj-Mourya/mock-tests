@@ -2,6 +2,12 @@ import { buildLogicalBank } from "./LogicalQuestionFactory.js";
 
 const symbols = ["circle", "triangle", "square", "star", "pentagon", "diamond"];
 const arrows = ["up", "right", "down", "left"];
+const completeDistractors=(correct,candidates)=>{
+ const result=[...new Set(candidates)].filter(option=>option!==correct);
+ if(/^\d+$/.test(correct)){for(const delta of [1,-1,2,-2,3]){const option=String(Math.max(0,+correct+delta));if(result.length<3&&option!==correct&&!result.includes(option))result.push(option);}}
+ else for(const option of [...symbols,...arrows])if(result.length<3&&option!==correct&&!result.includes(option))result.push(option);
+ return result.slice(0,3);
+};
 
 const patterns = Array.from({ length: 25 }, (_, p) => v => {
   const family = p % 5;
@@ -69,7 +75,7 @@ const patterns = Array.from({ length: 25 }, (_, p) => v => {
 
   return {
     subtopic: `Spatial pattern ${p + 1}`,
-    prompt, correct, distractors, explanation,
+    prompt, correct, distractors:completeDistractors(correct,distractors), explanation,
     assessmentStyle: "multi-step",
     shortcut: "Convert the figure into a stable representation—face pairs, quarter-turn indices, layers, or a shape cycle—before comparing options.",
     commonMistake: "Track orientation and layers after every operation; do not reason from the final-looking figure alone.",

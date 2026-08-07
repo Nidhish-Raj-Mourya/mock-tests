@@ -5,13 +5,11 @@ const idealTimeFor = level => level === PLACEMENT_LEVELS[0] ? 30 : level === PLA
 
 export function createVerbalQuestion({ id, level, subtopic, prompt, correct, distractors, explanation, assessmentStyle="contextual", shortcut, commonMistake, idealTimeSeconds }) {
   const options=[correct,...distractors].map(value=>String(value).trim()).filter((value,index,all)=>value&&all.indexOf(value)===index);
-  const fallbacks=["No improvement is required","The information is insufficient","None of these","Both statements are acceptable"];
-  for(const fallback of fallbacks)if(options.length<4&&!options.includes(fallback))options.push(fallback);
   if(options.length!==4||!options.includes(String(correct).trim()))throw new Error(`Invalid verbal options for ${subtopic} question ${id+1}`);
   const trace=assessmentStyle==="multi-step"
     ? " Test each option against meaning, grammar, tone and logical continuity; reject an option as soon as it violates any one of them."
     : " Read the complete sentence before selecting; the surrounding words determine the required grammar and meaning.";
-  return {domain:"verbal",id,level,subtopic,q:prompt,opts:options,ans:options.indexOf(String(correct).trim()),assessmentStyle,reasoningDepth:assessmentStyle==="multi-step"?"two-step":"single-step",patternId:subtopic.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,""),idealTimeSeconds:idealTimeSeconds||idealTimeFor(level),shortcut:shortcut||"Identify the tested rule or relationship first, eliminate structurally impossible choices, and then verify the surviving option in the complete context.",commonMistake:commonMistake||"Do not choose an option merely because it sounds familiar; check its exact grammar, meaning, register and logical fit.",solution:`Concept: ${subtopic}. Reasoning trace: ${explanation}${trace} Verification: substituting the selected answer preserves both grammatical accuracy and the intended meaning. Final answer: ${correct}.`};
+  return {domain:"verbal",id,level,subtopic,q:prompt,opts:options,ans:options.indexOf(String(correct).trim()),assessmentStyle,reasoningDepth:assessmentStyle==="multi-step"?"two-step":"single-step",patternId:subtopic.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,""),idealTimeSeconds:idealTimeSeconds||idealTimeFor(level),shortcut:shortcut||`For ${subtopic.toLowerCase()} at ${level.toLowerCase()} level, identify the governing clue before comparing the closest two options; then substitute the survivor into the full context.`,commonMistake:commonMistake||`In ${subtopic.toLowerCase()}, do not rely on familiarity or one keyword; verify grammar, meaning, scope and tone against the complete context.`,solution:`Concept: ${subtopic}. Reasoning trace: ${explanation}${trace} Verification: substituting the selected answer preserves both grammatical accuracy and the intended meaning. Final answer: ${correct}.`};
 }
 
 export function buildVerbalBank(patterns){

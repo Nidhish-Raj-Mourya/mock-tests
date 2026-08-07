@@ -36,7 +36,7 @@ const cases = [
   ["No B C some A B",(a,b,c)=>[`No ${b} is a ${c}.`,`Some ${a} are ${b}.`],[`Some ${a} are not ${c}.`,`Some ${c} are not ${a}.`],0,"The A-B witness cannot be C, proving the first conclusion; the premises do not guarantee any C member."],
   ["All C B no A B",(a,b,c)=>[`All ${c} are ${b}.`,`No ${a} is a ${b}.`],[`No ${a} is a ${c}.`,`No ${c} is an ${a}.`],2,"C lies inside B while A is outside B, so A and C cannot overlap; universal exclusion converts symmetrically."],
   ["Either overlap unresolved",(a,b,c)=>[`Some ${a} are not ${b}.`,`Some ${c} are ${b}.`],[`Some ${a} are not ${c}.`,`Some ${c} are not ${a}.`],3,"The two witnesses give no fixed A-C placement; they can coincide only where conditions permit or remain separate."],
-  ["Three-level exclusion",(a,b,c)=>[`All ${a} are ${b}.`,`All ${b} are ${c}.`,`No ${c} are leaders.`],[`No ${a} are leaders.`,`No ${b} are leaders.`],2,"A and B both lie within C, and C is disjoint from leaders; therefore both nested groups are disjoint from leaders."],
+  ["Three-level exclusion",(a,b,c)=>[`All ${a} are ${b}.`,`All ${b} are ${c}.`,`No ${c} are executives.`],[`No ${a} are executives.`,`No ${b} are executives.`],2,"A and B both lie within C, and C is disjoint from executives; therefore both nested groups are disjoint from executives."],
 ];
 
 const patterns = cases.map(([name,premises,conclusions,answer,reason]) => v => {
