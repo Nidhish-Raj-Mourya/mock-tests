@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { PLACEMENT_BUILDERS, PLACEMENT_LEVELS, PLACEMENT_LEVEL_COUNTS, auditPlacementBanks, createBalancedAnswerTargets } from "./PlacementQuestionBanks";
+import { LOGICAL_BUILDERS, auditLogicalBanks } from "../logical/LogicalQuestionBanks";
+import QuestionVisual from "../visuals/QuestionVisual";
 
 const LEVELS = PLACEMENT_LEVELS;
 
@@ -116,7 +118,9 @@ function interest() {
 
 const BUILDERS = { number: numberSystem, percentage: percentages, profit: profitLoss, ratio: ratioProportion, average: averages, interest };
 Object.assign(BUILDERS, PLACEMENT_BUILDERS);
+Object.assign(BUILDERS, LOGICAL_BUILDERS);
 auditPlacementBanks();
+auditLogicalBanks();
 
 function hash(s) { let h = 2166136261; for (const ch of s) h = Math.imul(h ^ ch.charCodeAt(0), 16777619); return h >>> 0; }
 function rng(seed) {
@@ -134,7 +138,11 @@ function prepare(source, seed) {
   return ordered.map((item, i) => {
     const opts = [...item.opts], target = targets[i];
     [opts[0], opts[target]] = [opts[target], opts[0]];
-    const assessmentInstruction = item.assessmentStyle === "multi-step"
+    const assessmentInstruction = item.domain === "logical" && item.assessmentStyle === "multi-step"
+      ? "Map every condition before choosing. Accept only a conclusion or arrangement forced by all stated facts."
+      : item.domain === "logical"
+        ? "Use only the stated evidence. Separate what must follow from what is merely possible or plausible."
+        : item.assessmentStyle === "multi-step"
       ? "Use every stated change in sequence. Keep intermediate values unrounded unless the question says otherwise."
       : item.assessmentStyle === "reverse"
         ? "The final condition is known. Work backwards carefully and verify by substituting the result."
@@ -177,11 +185,11 @@ export default function AptitudePractice({ topic, day, kind, color = "#4f46e5" }
   const card = { width: "min(100%, 880px)", margin: "0 auto", background: "white", border: "1px solid #e2e8f0", borderRadius: 16, padding: "clamp(20px, 4vw, 38px)", boxShadow: "0 12px 35px rgba(15,23,42,.08)" };
 
   if (!started) return <div style={shell}><div style={card}>
-    <div style={{ color, fontWeight: 800, letterSpacing: 2, fontSize: 12 }}>{day.toUpperCase()} APTITUDE SERIES</div>
+    <div style={{ color, fontWeight: 800, letterSpacing: 2, fontSize: 12 }}>{day.toUpperCase()} PRACTICE SERIES</div>
     <h1 style={{ fontSize: "clamp(34px, 7vw, 58px)", lineHeight: 1.08, letterSpacing: "-0.04em", margin: "12px 0 14px" }}>{topic}</h1>
     <p style={{ color: "#64748b", lineHeight: 1.6, fontSize: "clamp(15px, 2vw, 18px)", maxWidth: 680, margin: "0 auto" }}>150 verified, placement-focused questions covering the complete curriculum for this topic—from essential concepts to company-style applications.</p>
     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(145px,1fr))", gap: 10, margin: "26px 0" }}>{LEVELS.map((x, i) => <div key={x} style={{ background: "#f8fafc", padding: "14px 10px", borderRadius: 10, textAlign: "center", border: "1px solid #e2e8f0" }}><b style={{ color }}>{i + 1}</b><div style={{ fontSize: 12, lineHeight: 1.45, marginTop: 5 }}>{x}<br /><strong>{PLACEMENT_LEVEL_COUNTS[i]} questions</strong></div></div>)}</div>
-    <p style={{ fontSize: 13, lineHeight: 1.5, color: "#64748b", marginBottom: 14 }}>Every answer is formula-generated and audited. Solutions appear immediately after selection. A/B/C/D positions are balanced and reshuffled for every attempt.</p>
+    <p style={{ fontSize: 13, lineHeight: 1.5, color: "#64748b", marginBottom: 14 }}>Every answer and explanation is generated from a verified rule or solved arrangement and audited. Solutions appear immediately after selection. A/B/C/D positions are balanced and reshuffled for every attempt.</p>
     <div style={{ background: "#eff6ff", border: "1px solid #bfdbfe", borderRadius: 10, padding: "11px 14px", color: "#1e40af", fontSize: 13, lineHeight: 1.5, marginBottom: 16 }}><strong>Timed practice:</strong> 30-second target per question. Pause whenever needed; paused time is not counted. Overtime is allowed and recorded.</div>
     <button onClick={() => setStarted(true)} style={{ width: "100%", background: color, color: "white", border: 0, padding: 14, borderRadius: 10, fontWeight: 800, fontSize: 16, cursor: "pointer" }}>Start {day}'s Practice →</button>
   </div></div>;
@@ -196,6 +204,7 @@ export default function AptitudePractice({ topic, day, kind, color = "#4f46e5" }
     <div style={{ display: "inline-flex", background: `${color}12`, color, border: `1px solid ${color}35`, borderRadius: 999, padding: "4px 10px", fontSize: 12, fontWeight: 800 }}>{item.subtopic}</div>
     <div style={{ marginTop: 12, background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 9, padding: "10px 12px", color: "#475569", fontSize: 12, lineHeight: 1.5 }}><strong style={{ color: "#334155" }}>Assessment instruction:</strong> {item.assessmentInstruction}</div>
     <h2 style={{ fontSize: "clamp(17px, 2.2vw, 20px)", lineHeight: 1.55, minHeight: 58, marginTop: 12 }}>{item.q}</h2>
+    <QuestionVisual item={item} kind={kind} revealed={selected !== null} />
     <div style={{ margin: "20px 0" }}>{item.opts.map((opt, i) => { const correct = selected !== null && i === item.ans, wrong = selected === i && i !== item.ans; return <button key={i} onClick={() => choose(i)} style={{ display: "block", width: "100%", textAlign: "left", margin: "9px 0", padding: "14px 16px", borderRadius: 10, border: `1.5px solid ${correct ? "#10b981" : wrong ? "#ef4444" : "#cbd5e1"}`, background: correct ? "#ecfdf5" : wrong ? "#fef2f2" : "#f8fafc", cursor: selected === null ? "pointer" : "default", fontSize: 16 }}><b style={{ marginRight: 12 }}>{String.fromCharCode(65 + i)}.</b>{opt}</button>; })}</div>
     {selected !== null && <div style={{ background: "#f8fafc", border: "1px solid #cbd5e1", borderLeft: `4px solid ${selected === item.ans ? "#10b981" : "#ef4444"}`, borderRadius: 9, padding: "12px 14px", margin: "-4px 0 18px", color: "#334155", fontSize: 14, lineHeight: 1.55 }}><div style={{ display: "flex", justifyContent: "space-between", gap: 10, flexWrap: "wrap", marginBottom: 5 }}><strong>Verified solution</strong><strong style={{ color: elapsed <= item.idealTimeSeconds ? "#059669" : "#dc2626" }}>Your time: {elapsed}s · Ideal: {item.idealTimeSeconds}s</strong></div><div>{item.solution}</div><div style={{ marginTop: 10, paddingTop: 9, borderTop: "1px solid #e2e8f0" }}><strong>Speed approach:</strong> {item.shortcut}</div><div style={{ marginTop: 6, color: "#9a3412" }}><strong>Common mistake:</strong> {item.commonMistake}</div></div>}
     <div style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: "space-between", alignItems: "center" }}><button disabled={current === 0} onClick={() => jumpTo(current - 1)} style={{ background: "#fff", color: current === 0 ? "#94a3b8" : "#475569", border: "1px solid #cbd5e1", padding: "11px 18px", borderRadius: 9, fontWeight: 700, cursor: current === 0 ? "not-allowed" : "pointer" }}>← Previous</button><span style={{ color: selected === null ? "#94a3b8" : selected === item.ans ? "#059669" : "#dc2626", fontWeight: 700 }}>{selected === null ? "Unanswered · You may skip" : selected === item.ans ? "Correct!" : `Correct answer: ${String.fromCharCode(65 + item.ans)}`}</span><button onClick={next} style={{ background: color, color: "white", border: 0, padding: "12px 24px", borderRadius: 9, fontWeight: 700, cursor: "pointer" }}>{current === questions.length - 1 ? "Finish Test" : selected === null ? "Skip / Next →" : "Next →"}</button></div>

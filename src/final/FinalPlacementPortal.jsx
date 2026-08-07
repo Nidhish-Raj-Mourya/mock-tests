@@ -21,12 +21,26 @@ const numericalTopics=[
   {title:"Data Interpretation",kind:"dataInterpretation",color:"#047857",coverage:"25 patterns: tables, chart comparisons, percentage change, targets, funnels, combined datasets and business caselets",ready:true,quality:true},
 ];
 
-const logicalTopics=["Syllogisms","Coding–Decoding","Blood Relations","Direction Sense","Ranking and Ordering","Number and Letter Series","Statement and Conclusion","Assumption and Inference","Data Sufficiency","Seating Arrangements","Analytical Puzzles","Clocks and Calendars"];
 const verbalTopics=["Error Detection","Sentence Correction","Grammar Fundamentals","Sentence Completion","Vocabulary","Synonyms and Antonyms","Idioms and Phrases","Cloze Tests","Para Jumbles","Reading Comprehension","Critical Reasoning","One-word Substitution"];
+const logicalTopicModules=[
+  {title:"Syllogisms",kind:"syllogisms",coverage:"25 patterns: categorical chains, exclusions, particular conclusions, conversion, existence and undistributed-middle traps"},
+  {title:"Coding–Decoding",kind:"codingDecoding",coverage:"25 patterns: alphabet shifts, mirror coding, position sums, reordered letters and multi-operation codes"},
+  {title:"Blood Relations",kind:"bloodRelations",coverage:"25 patterns: generation chains, maternal/paternal relations, in-laws, coded relations and family trees"},
+  {title:"Direction Sense",kind:"directionSense",coverage:"25 patterns: multi-turn routes, net displacement, shortest distance and final orientation"},
+  {title:"Ranking and Ordering",kind:"rankingOrdering",coverage:"25 patterns: ranks from either end, totals, candidates between, swaps and comparison chains"},
+  {title:"Number and Letter Series",kind:"numberLetterSeries",coverage:"25 patterns: differences, ratios, alternating operations, square-based and alphabet series"},
+  {title:"Statement and Conclusion",kind:"statementConclusion",coverage:"25 patterns: must-follow conclusions, quantified evidence, policy statements and causal limits"},
+  {title:"Assumption and Inference",kind:"assumptionInference",coverage:"25 patterns: denial-test assumptions, recommendations, evidence limits, forecasts and business arguments"},
+  {title:"Data Sufficiency",kind:"dataSufficiency",coverage:"25 patterns: numerical, ordering, family, direction, calendar and logical sufficiency decisions"},
+  {title:"Seating Arrangements",kind:"seatingArrangements",coverage:"25 patterns: linear and circular seating, neighbours, opposite seats, positions and mixed constraints"},
+  {title:"Analytical Puzzles",kind:"analyticalPuzzles",coverage:"25 patterns: day scheduling, exact gaps, before-after rules, midpoint and paired-slot deductions"},
+  {title:"Clocks and Calendars",kind:"clocksCalendars",coverage:"25 patterns: hand angles, mirror times, weekday shifts, date calculation and leap-year counting"},
+  {title:"Non-verbal and Spatial Reasoning",kind:"nonVerbalSpatial",coverage:"25 patterns: painted cubes, paper folding, cube nets, rotations and figure sequences"},
+].map(topic=>({...topic,color:"#7c3aed",ready:true,quality:true}));
 
 const sections=[
   {id:"numerical",title:"Numerical Ability",subtitle:"Arithmetic, number theory, commercial maths and data interpretation",color:"#2563eb",count:numericalTopics.length},
-  {id:"logical",title:"Logical Reasoning",subtitle:"Deduction, arrangements, analytical reasoning and pattern recognition",color:"#7c3aed",count:logicalTopics.length},
+  {id:"logical",title:"Logical Reasoning",subtitle:"Deduction, arrangements, analytical reasoning and pattern recognition",color:"#7c3aed",count:logicalTopicModules.length},
   {id:"verbal",title:"Verbal Ability",subtitle:"Grammar, vocabulary, comprehension and critical reasoning",color:"#059669",count:verbalTopics.length},
 ];
 
@@ -34,12 +48,17 @@ export default function FinalPlacementPortal(){
   const [activeSection,setActiveSection]=useState(null),[activeTopic,setActiveTopic]=useState(null);
   const shell={minHeight:"100vh",background:"#f1f5f9",padding:"clamp(28px,5vw,64px) 16px",fontFamily:"Inter,Segoe UI,sans-serif",color:"#0f172a"};
   const card={width:"min(100%,1050px)",margin:"0 auto",background:"#fff",border:"1px solid #e2e8f0",borderRadius:18,padding:"clamp(22px,4vw,40px)",boxShadow:"0 16px 45px rgba(15,23,42,.08)"};
-
-  if(activeTopic)return <div><button onClick={()=>setActiveTopic(null)} style={{position:"fixed",top:16,left:16,zIndex:999,border:"1px solid #cbd5e1",borderRadius:9,background:"#fff",padding:"9px 14px",fontWeight:800,cursor:"pointer",boxShadow:"0 5px 18px rgba(15,23,42,.12)"}}>← Numerical Topics</button><AptitudePractice day="Numerical Ability" topic={activeTopic.title} kind={activeTopic.kind} color={activeTopic.color}/></div>;
-
-  if(!activeSection)return <div style={shell}><div style={card}><div style={{fontSize:12,fontWeight:900,letterSpacing:2,color:"#4f46e5"}}>CAMPUS PLACEMENT PREPARATION</div><h1 style={{fontSize:"clamp(34px,6vw,58px)",lineHeight:1.08,margin:"12px 0"}}>Placement Mastery Portal</h1><p style={{color:"#64748b",lineHeight:1.65,maxWidth:760}}>Build speed, accuracy and reasoning depth through structured topic practice. Completed Numerical Ability modules are available now; upcoming Numerical, Logical and Verbal modules are clearly marked Coming Soon.</p><div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(240px,1fr))",gap:16,marginTop:30}}>{sections.map(section=><button key={section.id} onClick={()=>setActiveSection(section.id)} style={{textAlign:"left",padding:24,borderRadius:15,border:`2px solid ${section.color}30`,borderTop:`5px solid ${section.color}`,background:"#fff",cursor:"pointer",color:"#0f172a"}}><h2 style={{fontSize:25,margin:"0 0 7px"}}>{section.title}</h2><p style={{fontSize:13,color:"#64748b",lineHeight:1.5,minHeight:58}}>{section.subtitle}</p><div style={{marginTop:14,color:section.color,fontWeight:900}}>{section.count} topics →</div></button>)}</div></div></div>;
-
   const sectionInfo=sections.find(section=>section.id===activeSection);
-  const topics=activeSection==="numerical"?numericalTopics:(activeSection==="logical"?logicalTopics:verbalTopics).map(title=>({title,coverage:"Structured placement practice module is under development.",ready:false,color:sectionInfo.color}));
+
+  if(activeTopic)return <div><button onClick={()=>setActiveTopic(null)} style={{position:"fixed",top:16,left:16,zIndex:999,border:"1px solid #cbd5e1",borderRadius:9,background:"#fff",padding:"9px 14px",fontWeight:800,cursor:"pointer",boxShadow:"0 5px 18px rgba(15,23,42,.12)"}}>← {sectionInfo.title} Topics</button><AptitudePractice day={sectionInfo.title} topic={activeTopic.title} kind={activeTopic.kind} color={activeTopic.color}/></div>;
+
+  if(!activeSection)return <div style={shell}><div style={card}>
+    <div style={{fontSize:12,fontWeight:900,letterSpacing:2,color:"#4f46e5"}}>CAMPUS PLACEMENT PREPARATION</div>
+    <h1 style={{fontSize:"clamp(34px,6vw,58px)",lineHeight:1.08,margin:"12px 0"}}>Placement Mastery Portal</h1>
+    <p style={{color:"#64748b",lineHeight:1.65,maxWidth:760}}>Build speed, accuracy and reasoning depth through structured topic practice. Numerical Ability and Logical Reasoning modules are available now; Verbal Ability modules are clearly marked Coming Soon.</p>
+    <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(240px,1fr))",gap:16,marginTop:30}}>{sections.map(section=><button key={section.id} onClick={()=>setActiveSection(section.id)} style={{textAlign:"left",padding:24,borderRadius:15,border:`2px solid ${section.color}30`,borderTop:`5px solid ${section.color}`,background:"#fff",cursor:"pointer",color:"#0f172a"}}><h2 style={{fontSize:25,margin:"0 0 7px"}}>{section.title}</h2><p style={{fontSize:13,color:"#64748b",lineHeight:1.5,minHeight:58}}>{section.subtitle}</p><div style={{marginTop:14,color:section.color,fontWeight:900}}>{section.count} topics →</div></button>)}</div>
+  </div></div>;
+
+  const topics=activeSection==="numerical"?numericalTopics:activeSection==="logical"?logicalTopicModules:verbalTopics.map(title=>({title,coverage:"Structured placement practice module is under development.",ready:false,color:sectionInfo.color}));
   return <div style={shell}><div style={card}><button onClick={()=>setActiveSection(null)} style={{border:"1px solid #cbd5e1",borderRadius:8,background:"#fff",padding:"8px 12px",fontWeight:800,cursor:"pointer",color:"#475569"}}>← Ability Sections</button><div style={{marginTop:24,color:sectionInfo.color,fontSize:12,fontWeight:900,letterSpacing:2}}>{sectionInfo.title.toUpperCase()}</div><h1 style={{fontSize:"clamp(32px,5vw,48px)",margin:"8px 0"}}>Choose a Topic</h1><p style={{color:"#64748b",lineHeight:1.6}}>Available modules contain 150 verified questions across 25 placement patterns, with timed navigation, worked solutions and review controls. Additional modules are being released progressively.</p><div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(270px,1fr))",gap:13,marginTop:26}}>{topics.map(topic=><button key={topic.title} disabled={!topic.ready} onClick={()=>topic.ready&&setActiveTopic(topic)} style={{textAlign:"left",padding:19,borderRadius:13,border:`1.5px solid ${topic.ready?topic.color+"55":"#e2e8f0"}`,borderLeft:`5px solid ${topic.ready?topic.color:"#cbd5e1"}`,background:topic.ready?"#fff":"#f8fafc",cursor:topic.ready?"pointer":"default",color:"#0f172a",opacity:topic.ready?1:.68}}><div style={{display:"flex",justifyContent:"space-between",gap:10}}><h2 style={{fontSize:19,margin:0}}>{topic.title}</h2><span style={{fontSize:11,fontWeight:900,color:topic.quality?"#047857":topic.ready?"#b45309":"#64748b",whiteSpace:"nowrap"}}>{topic.quality?"AVAILABLE · 150":topic.ready?"REVIEWING":"COMING SOON"}</span></div><p style={{fontSize:12,color:"#64748b",lineHeight:1.5,marginTop:8}}>{topic.coverage}</p>{topic.ready&&<div style={{marginTop:11,color:topic.color,fontWeight:900,fontSize:13}}>Open practice →</div>}</button>)}</div></div></div>;
 }
