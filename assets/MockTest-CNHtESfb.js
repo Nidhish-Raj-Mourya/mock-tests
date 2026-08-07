@@ -1,1 +1,0 @@
-import{t as e}from"./jsx-runtime-BnxRlLMJ.js";import{t}from"./index-CQAXIl8q.js";var n=e();function r(){return(0,n.jsx)(t,{day:`Saturday`,topic:`Simple and Compound Interest`,kind:`interest`,color:`#be123c`})}export{r as default};
