@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { PLACEMENT_BUILDERS, PLACEMENT_LEVELS, PLACEMENT_LEVEL_COUNTS, auditPlacementBanks, createBalancedAnswerTargets } from "./PlacementQuestionBanks";
 import { LOGICAL_BUILDERS, auditLogicalBanks } from "../logical/LogicalQuestionBanks";
+import { VERBAL_BUILDERS, auditVerbalBanks } from "../verbal/VerbalQuestionBanks";
 import QuestionVisual from "../visuals/QuestionVisual";
 
 const LEVELS = PLACEMENT_LEVELS;
@@ -119,8 +120,10 @@ function interest() {
 const BUILDERS = { number: numberSystem, percentage: percentages, profit: profitLoss, ratio: ratioProportion, average: averages, interest };
 Object.assign(BUILDERS, PLACEMENT_BUILDERS);
 Object.assign(BUILDERS, LOGICAL_BUILDERS);
+Object.assign(BUILDERS, VERBAL_BUILDERS);
 auditPlacementBanks();
 auditLogicalBanks();
+auditVerbalBanks();
 
 function hash(s) { let h = 2166136261; for (const ch of s) h = Math.imul(h ^ ch.charCodeAt(0), 16777619); return h >>> 0; }
 function rng(seed) {
@@ -138,7 +141,11 @@ function prepare(source, seed) {
   return ordered.map((item, i) => {
     const opts = [...item.opts], target = targets[i];
     [opts[0], opts[target]] = [opts[target], opts[0]];
-    const assessmentInstruction = item.domain === "logical" && item.assessmentStyle === "multi-step"
+    const assessmentInstruction = item.domain === "verbal" && item.assessmentStyle === "multi-step"
+      ? "Read the complete passage or argument first. Use only the stated context, track logical links, and reject options that are grammatically possible but contextually unsupported."
+      : item.domain === "verbal"
+        ? "Identify the exact language rule or meaning tested, then verify the selected option in the complete sentence rather than in isolation."
+      : item.domain === "logical" && item.assessmentStyle === "multi-step"
       ? "Map every condition before choosing. Accept only a conclusion or arrangement forced by all stated facts."
       : item.domain === "logical"
         ? "Use only the stated evidence. Separate what must follow from what is merely possible or plausible."
