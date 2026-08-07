@@ -1,1 +1,0 @@
-import{t as e}from"./jsx-runtime-BN4ZKciC.js";import{t}from"./index-DyWPeFPc.js";var n=e();function r(){return(0,n.jsx)(t,{day:`Wednesday`,topic:`Profit and Loss`,kind:`profit`,color:`#ea580c`})}export{r as default};

@@ -1,0 +1,1 @@
+import{t as e}from"./jsx-runtime-BN4ZKciC.js";import{t}from"./index-DNAmrNr4.js";var n=e();function r(){return(0,n.jsx)(t,{day:`Tuesday`,topic:`Percentages`,kind:`percentage`,color:`#0891b2`})}export{r as default};
